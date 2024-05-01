@@ -1,0 +1,78 @@
+
+.BackG{
+    background-image: url("/public/old-city-architecture-ancient-wall-historic-876774-wallhere.com.jpg");
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+}
+
+.Booking{
+    BORDER: 5PX SOLID BLACK;
+    height: fit-content;
+    width: 40%;
+    margin-top: 3.2rem;
+    background-color: #f8f9fa;
+    
+
+
+}
+
+.Booking Col{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 5px solid #9c0a0a;
+
+}
+.Booking h6{
+    text-align: center;
+    align-self:center ;
+    font-size: 1.5rem;
+    color: #000;
+}
+
+
+
+
+
+
+.Booking input{
+    width: 100%;
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    border: 1px solid #000;
+    border-radius: 10px;
+    outline: none;
+    font-size: 1rem;
+    
+
+}
+.Booking button{
+    
+    margin-left: 50%;
+    transform: translateX(-50%);
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 10px;
+    width: 50%;
+    margin-top: 2rem;
+    
+
+}
+.Booking button:hover{
+    background-color: rgb(52, 197, 23);
+    color: #000;
+    border: 1px solid #000;
+    width: 50%;
+}
