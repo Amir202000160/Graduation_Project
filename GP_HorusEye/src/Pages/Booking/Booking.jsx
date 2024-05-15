@@ -2,9 +2,19 @@ import  './Booking.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 
 function Booking  () {
+    const [Hotels,SetHotels] =useState([])
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/product')
+        .then((response) => {
+            SetHotels(response.data)
+        })
+    },[])
     
 
     return (
@@ -31,7 +41,24 @@ function Booking  () {
                     </Col>
                 </Row>
             </Container>
+            
+            <div className='Hotels'>
+                {
+                Hotels.map((hotel) =>{
+                    return(
+                        
+                        <div className='card'>
+            <div class="card-image"></div>
+            <div class="category" key={hotel.id}> {hotel.title} 
+            </div>
+            </div>
+                    )
+                })
+                }
+            </div>
         </div>
+    
+
     );
 }
 

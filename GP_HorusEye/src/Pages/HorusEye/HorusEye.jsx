@@ -21,7 +21,7 @@ if (photo) {
 
     let ctx = photo.getContext('2d');
     ctx.drawImage(video, 0, 0, width, height);
-    axios.post('http://localhost:3000/posts', 
+    axios.post('http://localhost:3000/product', 
     {
     photo: photo.toDataURL()
     }
