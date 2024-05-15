@@ -17,12 +17,12 @@ function Login(){
         axios.post("http://localhost:3000/product", 
             {
             Email,
-            Password,
+            Password
             }).catch(error => {
                 console.error(error);
-              }).then((res)=> {
+            }).then((res)=> {
                 console.log(res)
-                navigate('/')})
+                navigate('/')})     
 
             
     }

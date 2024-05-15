@@ -46,10 +46,16 @@ function Booking  () {
                 {
                 Hotels.map((hotel) =>{
                     return(
-                        
-                        <div className='card'>
-            <div class="card-image"></div>
-            <div class="category" key={hotel.id}> {hotel.title} 
+                <div className='card' key={hotel.id}>
+                <div className="card-image"></div>
+                <div className="category"> 
+                <h3>{hotel.name}</h3>
+                <h3>{hotel.Email}</h3>
+                <p>{hotel.city}</p>
+                <p>{hotel.price}</p>
+                <p>{hotel.rating}</p>
+                <p>{hotel.description}</p>
+                <button>Book</button>
             </div>
             </div>
                     )
