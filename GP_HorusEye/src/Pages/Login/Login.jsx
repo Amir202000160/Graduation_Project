@@ -14,16 +14,17 @@ function Login(){
 //////////FETCH//////////////////////////////////////////
     const formSubmit =(e) =>{
         e.preventDefault()
-        axios.post("http://localhost:3000/product", 
-            {
-            Email,
-            Password
-            }).catch(error => {
+        axios.post("http://localhost:3000/product", null,
+           {params:{ 
+            email: Email,
+            password: Password
+            }})
+            .catch(error => {
                 console.error(error);
             }).then((res)=> {
                 console.log(res)
-                navigate('/')})     
-
+                navigate('/')})    
+            
             
     }
 

@@ -8,6 +8,10 @@ import axios from 'axios';
 
 function Booking  () {
     const [Hotels,SetHotels] =useState([])
+    const [city,SetCity] = useState('')
+    const [checkIn,SetCheckIn] = useState('')
+    const [checkOut,SetCheckOut] = useState('')
+    const [room,SetRoom] = useState('')
 
     useEffect(() => {
         axios.get('http://localhost:3000/product')
@@ -15,26 +19,43 @@ function Booking  () {
             SetHotels(response.data)
         })
     },[])
-    
+
+    const onBooking  =(e) =>{
+        e.preventDefault()
+        axios.post('url',null, 
+        {params:{
+            city:city,
+            checkIn:checkIn,
+            checkOut:checkOut,
+            room:room
+        }})
+        console.log(city)
+        console.log(checkIn)
+        console.log(checkOut)
+        console.log(room)
+    }
+
+
+
 
     return (
-        <div className='BackG'>
+        <form className='BackG' onSubmit={onBooking} >
             <Container className='Booking'>
                 <Row>
                     <Col className='Col'>
                         <h6>City</h6>
-                        <input type='text' placeholder='Search for hotels' />
+                        <input type='text' placeholder='Search for cities' onChange={(e) => SetCity(e.target.value)} />
                     </Col>
                     <Col  className='Col'>
                         <h6>CheckIn</h6>
-                            <input type='date' />
+                            <input type='date' onChange={(e) => SetCheckIn(e.target.value)}/>
                     </Col>
                     <Col  className='Col'>
                         <h6>CheckOut</h6>
-                        <input type='date' />
+                        <input type='date' onChange={(e) => SetCheckOut(e.target.value)}/>
                     </Col> <Col  className='Col'>
                         <h6>Room</h6>
-                        <input type='number' />
+                        <input type='number' onChange={(e) => SetRoom(e.target.value)}/>
                     </Col>
                     <Col  className='Col'>
                         <button>Sreach</button>
@@ -49,20 +70,19 @@ function Booking  () {
                 <div className='card' key={hotel.id}>
                 <div className="card-image"></div>
                 <div className="category"> 
-                <h3>{hotel.name}</h3>
-                <h3>{hotel.Email}</h3>
+                <h2>{hotel.name}</h2>
                 <p>{hotel.city}</p>
                 <p>{hotel.price}</p>
                 <p>{hotel.rating}</p>
                 <p>{hotel.description}</p>
-                <button>Book</button>
+                <button className="btnBook">Book</button>
             </div>
             </div>
                     )
                 })
                 }
             </div>
-        </div>
+        </form>
     
 
     );
