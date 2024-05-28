@@ -12,7 +12,8 @@
 }
 
 .Booking{
-    BORDER: 5PX SOLID BLACK;
+    BORDER: 3PX SOLID BLACK;
+    border-radius: 10px;
     height: fit-content;
     width: 40%;
     margin-top: 3.2rem;
@@ -85,6 +86,7 @@
     background: rgb(228, 223, 223);
     padding: .4em;
     border-radius: 6px;
+    
   }
   
   .card-image {
@@ -103,11 +105,15 @@
     font-weight: 600;
     color: rgb(63, 121, 230);
     padding: 10px 7px 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    
+  
   }
   
-  .category:hover {
-    cursor: pointer;
-  }
+ 
   
   .heading {
     font-weight: 600;
@@ -153,14 +159,39 @@
     cursor: pointer;
     transition: 0.3s;
     border-radius: 10px;
-    width: 50%;
     margin-top: 1.5rem;
-    margin-left: 50%;
-    transform: translateX(-50%);
+    width: 40%;
+    height: 40%;
   }
+
   .btnBook:hover{
     background-color: rgb(52, 197, 23);
     color: #000;
     border: 1px solid #000;
-    width: 50%;
   }
+
+  .btnDetails{
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 10px;
+    margin-top: 1.5rem;
+    width: 40%;
+    height: 40%;
+  }
+  .btnDetails:hover{
+    background-color: rgb(52, 197, 23);
+    color: #000;
+    border: 1px solid #000;
+  }
+
+.Btns{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+}

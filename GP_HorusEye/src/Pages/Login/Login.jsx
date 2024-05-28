@@ -13,9 +13,10 @@ function Login(){
 
 //////////FETCH//////////////////////////////////////////
     const formSubmit =(e) =>{
-        e.preventDefault()
+        e.preventDefault(e)
+        
         axios.post("http://localhost:3000/product", null,
-           {params:{ 
+        {params:{ 
             email: Email,
             password: Password
             }})
@@ -24,9 +25,7 @@ function Login(){
             }).then((res)=> {
                 console.log(res)
                 navigate('/')})    
-            
-            
-    }
+}
 
     return(
         <>
@@ -42,7 +41,7 @@ function Login(){
             </div>
             <button type="submit" className='LOG'>Login</button>
             <div className='RegLink'>
-        <p>Do not have an account? <Link to='/SignUp'>Regiter</Link></p>
+        <p>Do not have an account? <Link to='/SignUp'>Regsiter</Link></p>
             </div>
         </div>
         </div>

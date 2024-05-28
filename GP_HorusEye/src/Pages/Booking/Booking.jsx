@@ -1,9 +1,11 @@
+
 import  './Booking.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from 'axios'
+import Swal from 'sweetalert2/dist/sweetalert2.all.js'
 
 
 function Booking  () {
@@ -13,12 +15,18 @@ function Booking  () {
     const [checkOut,SetCheckOut] = useState('')
     const [room,SetRoom] = useState('')
 
-    useEffect(() => {
-        axios.get('http://localhost:3000/product')
+    
+    ////////////////////////fetch////////////////////////////
+
+    useEffect(() => {axios.get('http://localhost:3000/product')
         .then((response) => {
             SetHotels(response.data)
-        })
-    },[])
+        }).catch
+        ((error) => {
+            console.log(error)
+        })} ,[])
+
+/////////////////////OnBooking/////////////////////////////
 
     const onBooking  =(e) =>{
         e.preventDefault()
@@ -34,10 +42,29 @@ function Booking  () {
         console.log(checkOut)
         console.log(room)
     }
-
-
-
-
+    ///////////////////////////////Confirmation//////////////////
+const ConfirmationBooking =(hotel)=>{
+    Swal.fire ({
+        title: 'Are sure to confirm this Book?',
+        html: `
+      <h3>${hotel.name}</h3>
+      <p>City: ${city}</p>
+      <p>CheckIn: ${checkIn}</p>
+      <p>CheckOut: ${checkOut}</p>
+      <p>Room: ${room}</p>
+      <p>Price: ${hotel.price}</p>
+      <p>Rating: ${hotel.rating}</p>
+      <p>Description: ${hotel.description}</p>
+    `,
+         confirmButtonText: 'OK',
+        showCancelButton:true,
+        cancelButtonText: 'Cancel',
+        cancelButtonColor: '#d33',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire('Booked!', 'Your booking has been confirmed, check your email', 'success')
+        }})
+}
     return (
         <form className='BackG' onSubmit={onBooking} >
             <Container className='Booking'>
@@ -59,6 +86,7 @@ function Booking  () {
                     </Col>
                     <Col  className='Col'>
                         <button>Sreach</button>
+                        
                     </Col>
                 </Row>
             </Container>
@@ -70,15 +98,18 @@ function Booking  () {
                 <div className='card' key={hotel.id}>
                 <div className="card-image"></div>
                 <div className="category"> 
-                <h2>{hotel.name}</h2>
-                <p>{hotel.city}</p>
-                <p>{hotel.price}</p>
-                <p>{hotel.rating}</p>
-                <p>{hotel.description}</p>
-                <button className="btnBook">Book</button>
+                <h2>Hotel name: {hotel.name}</h2>
+                <p>City: {hotel.city}</p>
+                <p>Price: {hotel.price}</p>
+                <p>Rating: {hotel.rating}</p>
+                <p>Description: {hotel.description}</p>
+                <div className='Btns'>
+                <button className="btnBook" onClick={()=>{ConfirmationBooking(hotel)}}>Book</button>
+                <button className='btnDetails'>view details</button>
+                </div>
             </div>
             </div>
-                    )
+                )
                 })
                 }
             </div>
