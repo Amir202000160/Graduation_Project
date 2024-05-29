@@ -61,21 +61,29 @@ const getVideo = () => {
                 <h1>Horus EYE</h1>
                 <img src='/public/Group 4.png'className='img' />
                 </div>
-
-
             </div> 
+
+            <div className='Header'>
+              <h2>Enter the landmark</h2>
+            </div>
+
             <div className="HorusEye">
                 <div >
                 <video ref={videoRef} className="video" ></video>
                 <button onClick={takePhoto}>Capture</button>
                 </div>
-                <input type="file" accept="image/*" capture="camera" />
+                <div>
+                <input type="file" id='fileInput' accept="image/*"style={{display:'none'}}/>
+                <label for='fileInput' className='LabelFile'>Enter Landmark</label>
+                <button onClick={takePhoto}>Process</button>
+                </div>
             </div>
-            { 
+            {
             <div className={'result' + hasphoto ? 'hasphoto' :''}>
                 <canvas ref={photoRef} className="photo"></canvas>
             </div>
     }
+    
         
             
             <h3 className='HorusEyeDec'> Descripttion</h3>
