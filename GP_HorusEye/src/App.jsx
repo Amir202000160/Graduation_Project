@@ -10,6 +10,7 @@ import HorusEye from './Pages/HorusEye/HorusEye';
 import ViewHistory from './Pages/ViewHistory/ViewHistory';
 import VerifyPage from './Pages/VerifyPage/VerifyPage';
 import Password from './Pages/Password/Password';
+import ViewHotelDetails from './Pages/Booking/ViewHotelDetails';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path='/ViewHistory' element={<ViewHistory></ViewHistory>}></Route>
         <Route path='/VerifyPage' element={<VerifyPage></VerifyPage>}></Route>
         <Route path='/Password' element={<Password></Password>}></Route>
+        <Route path='/viewhoteldetails/:HotelID' element={<ViewHotelDetails></ViewHotelDetails>}></Route>
       </Routes>
 
       

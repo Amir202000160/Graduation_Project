@@ -6,14 +6,17 @@ import Col from 'react-bootstrap/Col';
 import { useEffect, useState } from 'react';
 import axios from 'axios'
 import Swal from 'sweetalert2/dist/sweetalert2.all.js'
+import { useNavigate } from 'react-router';
 
 
 function Booking  () {
+    let navigate = useNavigate()
     const [Hotels,SetHotels] =useState([])
     const [city,SetCity] = useState('')
     const [checkIn,SetCheckIn] = useState('')
     const [checkOut,SetCheckOut] = useState('')
     const [room,SetRoom] = useState('')
+
 
     
     ////////////////////////fetch////////////////////////////
@@ -60,11 +63,20 @@ const ConfirmationBooking =(hotel)=>{
         showCancelButton:true,
         cancelButtonText: 'Cancel',
         cancelButtonColor: '#d33',
-    }).then((result) => {
+    })
+    .then((result) => {
         if (result.isConfirmed) {
             Swal.fire('Booked!', 'Your booking has been confirmed, check your email', 'success')
-        }})
-}
+             ///////////////////POST BOOKING FOR STATIC DATA//////////////////////
+    axios.post ('url', {
+        hotelName: hotel ,
+        City: city,
+        CheckIN: checkIn,
+        CheckOut: checkOut,
+        Room: room,
+        price:price
+    })}})}
+
     return (
         <form className='BackG' onSubmit={onBooking} >
             <Container className='Booking'>
@@ -105,7 +117,7 @@ const ConfirmationBooking =(hotel)=>{
                 <p>Description: {hotel.description}</p>
                 <div className='Btns'>
                 <button className="btnBook" onClick={()=>{ConfirmationBooking(hotel)}}>Book</button>
-                <button className='btnDetails'>view details</button>
+                <button className='btnDetails' onClick={() =>{navigate(`/viewhoteldetails/${hotel.id}`)}}>view details</button>
                 </div>
             </div>
             </div>
