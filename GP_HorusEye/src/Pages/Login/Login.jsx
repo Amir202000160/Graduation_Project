@@ -9,24 +9,30 @@ function Login(){
     const [Email ,SetEmail] = useState("")
     const [Password ,SetPassword] = useState("")
     let navigate=useNavigate()
+    const [response , Setresponse] =useState("")
 
-
+/////////////////////////////////////////////////////////
 //////////FETCH//////////////////////////////////////////
+    
+
     const formSubmit =(e) =>{
-        e.preventDefault(e)
-        
-        axios.post("http://localhost:3000/product", null,
-        {params:{ 
+        e.preventDefault()
+        axios.post('http://localhost:8080/user/login', null,{
+            params:{
             email: Email,
             password: Password
-            }})
-            .catch(error => {
+        }}   ).catch(error => {
                 console.error(error);
             }).then((res)=> {
-                console.log(res)
-                navigate('/')})    
-}
+                console.log(res.data)
+                Setresponse(res.data)
+                if((res.data) == 1){
+                    navigate('/')
+                }
+            })     
 
+         
+    }
     return(
         <>
         <form className="LoginBackGround" onSubmit={formSubmit}>
@@ -40,14 +46,13 @@ function Login(){
                 <input type='password' placeholder='Password' required onChange={(e) => SetPassword(e.target.value) }></input><FaLock className='icon'/>
             </div>
             <button type="submit" className='LOG'>Login</button>
+            <h1>{response}</h1>
             <div className='RegLink'>
-        <p>Do not have an account? <Link to='/SignUp'>Regsiter</Link></p>
+        <p>Do not have an account? <Link to='/SignUp'>Regiter</Link></p>
             </div>
         </div>
         </div>
-    </form>
-        
-        
+    </form>        
         </>
     )
 
