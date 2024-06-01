@@ -5,18 +5,18 @@ import { Routes ,Route } from 'react-router-dom';
 import Login from './Pages/Login/Login';
 import SignUp from './Pages/SignUp/SignUP';
 import Fav from './Pages/FAV/FAV';
-import Booking from './Pages/Booking/Booking';
 import HorusEye from './Pages/HorusEye/HorusEye';
 import ViewHistory from './Pages/ViewHistory/ViewHistory';
 import VerifyPage from './Pages/VerifyPage/VerifyPage';
 import Password from './Pages/Password/Password';
 import ViewHotelDetails from './Pages/Booking/ViewHotelDetails';
+import Booking from './Pages/Booking/Booking';
 
 function App() {
+  
   return (
     <>
       <NavBar> </NavBar>
-
       <Routes>
         <Route path='/' element={<BackGround></BackGround>}></Route>
         <Route path='/Login' element={<Login></Login>}></Route>

@@ -1,12 +1,19 @@
 import './Verifypage.css'
 import Container from 'react-bootstrap/Container';
 import { useNavigate } from 'react-router-dom';
-
 import axios from 'axios';
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { EmailState } from '../SignUp/SignUP';
+
+///////////////////////////////////////////////////////
+
 function VerifyPage() {
 
-    const [Code, SetCode]=useState("")
+   let Email=useRecoilValue(EmailState)
+   console.log(Email)
+   
+   const [Code, SetCode]=useState("")
    let navigate=useNavigate()
 
    {/*} const handleFileChange = (event) => {
@@ -21,6 +28,7 @@ function VerifyPage() {
         e.preventDefault()
         axios.post("http://localhost:3000/posts", 
             {
+                
             Code
             })
             .then((response) => {

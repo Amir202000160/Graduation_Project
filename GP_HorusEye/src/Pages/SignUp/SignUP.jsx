@@ -9,12 +9,18 @@ import { FaUser} from "react-icons/fa";
 import { MdOutlineNumbers } from "react-icons/md";
 import { BiWorld } from "react-icons/bi";
 import { useState } from 'react';
+import { atom, useRecoilState } from 'recoil';
+
+export const EmailState = atom({
+    key: 'EmailState',
+    default: '',
+})
 function SignUp(){
 
    // const inputRef = useRef();
     const [FristName , SetFristName]=useState("")
     const [LastName , SetLastName]=useState("")
-    const [Email , SetEmail]=useState("")
+    const [Email , SetEmail]=useRecoilState(EmailState)
     const [Mobile , SetMobile]=useState("")
     const [Brithday , SetBrithday]=useState("")
     const [Country , SetCountry]=useState("")
@@ -49,6 +55,7 @@ function SignUp(){
                 filee*/
             })
             navigate('/VerifyPage');
+            console.log(Email)
     }
 
     return(

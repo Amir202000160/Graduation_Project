@@ -3,22 +3,39 @@ import  './Booking.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import axios from 'axios'
 import Swal from 'sweetalert2/dist/sweetalert2.all.js'
 import { useNavigate } from 'react-router';
+import {atom, useRecoilState } from 'recoil';
+/////////////////////////////////////////////////////////////
 
 
-function Booking  () {
+ export const CheckInState = atom({
+    key: 'CheckInState',
+    default: '',
+})
+
+export const CheckOutState = atom({
+    key: 'CheckOutState',
+    default: '',
+})
+
+export const RoomState = atom({
+    key: 'RoomState',
+    default: '',
+})
+
+//////////////////////////////////////////////////
+
+function Booking () {
     let navigate = useNavigate()
     const [Hotels,SetHotels] =useState([])
     const [city,SetCity] = useState('')
-    const [checkIn,SetCheckIn] = useState('')
-    const [checkOut,SetCheckOut] = useState('')
-    const [room,SetRoom] = useState('')
+    const [checkIn,SetCheckIn] = useRecoilState(CheckInState)
+    const [checkOut,SetCheckOut] = useRecoilState(CheckOutState)
+    const [room,SetRoom] = useRecoilState(RoomState)   
 
-
-    
     ////////////////////////fetch////////////////////////////
 
     useEffect(() => {axios.get('http://localhost:3000/product')
@@ -28,7 +45,6 @@ function Booking  () {
         ((error) => {
             console.log(error)
         })} ,[])
-
 /////////////////////OnBooking/////////////////////////////
 
     const onBooking  =(e) =>{
@@ -45,7 +61,8 @@ function Booking  () {
         console.log(checkOut)
         console.log(room)
     }
-    ///////////////////////////////Confirmation//////////////////
+///////////////////////////////Confirmation//////////////////
+
 const ConfirmationBooking =(hotel)=>{
     Swal.fire ({
         title: 'Are sure to confirm this Book?',
@@ -67,7 +84,9 @@ const ConfirmationBooking =(hotel)=>{
     .then((result) => {
         if (result.isConfirmed) {
             Swal.fire('Booked!', 'Your booking has been confirmed, check your email', 'success')
+
              ///////////////////POST BOOKING FOR STATIC DATA//////////////////////
+
     axios.post ('url', {
         hotelName: hotel ,
         City: city,
@@ -76,8 +95,10 @@ const ConfirmationBooking =(hotel)=>{
         Room: room,
         price:price
     })}})}
+{} 
 
-    return (
+
+    return (<>
         <form className='BackG' onSubmit={onBooking} >
             <Container className='Booking'>
                 <Row>
@@ -112,7 +133,7 @@ const ConfirmationBooking =(hotel)=>{
                 <div className="category"> 
                 <h2>Hotel name: {hotel.name}</h2>
                 <p>City: {hotel.city}</p>
-                <p>Price: {hotel.price}</p>
+                <p>Price/Night: {hotel.price} EGP</p>
                 <p>Rating: {hotel.rating}</p>
                 <p>Description: {hotel.description}</p>
                 <div className='Btns'>
@@ -126,7 +147,7 @@ const ConfirmationBooking =(hotel)=>{
                 }
             </div>
         </form>
-    
+    </>
 
     );
 }
