@@ -13,9 +13,7 @@ import { EmailState } from '../SignUp/SignUP';
 
 /////////////////////////////////////////////////////////////
 
-//EmailfromSignUp
-let Email=useRecoilValue(EmailState)
-   console.log(Email)
+
 
  export const CheckInState = atom({
     key: 'CheckInState',
@@ -35,6 +33,10 @@ export const RoomState = atom({
 //////////////////////////////////////////////////
 
 function Booking () {
+    
+    //EmailfromSignUp
+let Email=useRecoilValue(EmailState)
+   console.log(Email)
     let navigate = useNavigate()
     const [Hotels,SetHotels] =useState([])
     const [city,SetCity] = useState('')

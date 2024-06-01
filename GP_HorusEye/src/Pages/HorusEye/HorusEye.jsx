@@ -5,12 +5,12 @@ import { useRecoilValue } from 'recoil';
 import { EmailState } from '../SignUp/SignUP';
 
 ///////////////////////////////////////////////////////
+
+
+function HorusEye(){
 //EmailFromSignUp
 let Email=useRecoilValue(EmailState)
    console.log(Email)
-
-function HorusEye(){
-
 
     const videoRef = useRef(null)
     const photoRef = useRef(null)

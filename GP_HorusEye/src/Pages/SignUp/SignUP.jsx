@@ -4,7 +4,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
 import { FaUser} from "react-icons/fa";
 import { MdOutlineNumbers } from "react-icons/md";
 import { BiWorld } from "react-icons/bi";
