@@ -8,8 +8,14 @@ import axios from 'axios'
 import Swal from 'sweetalert2/dist/sweetalert2.all.js'
 import { useNavigate } from 'react-router';
 import {atom, useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
+import { EmailState } from '../SignUp/SignUP';
 
 /////////////////////////////////////////////////////////////
+
+//EmailfromSignUp
+let Email=useRecoilValue(EmailState)
+   console.log(Email)
 
  export const CheckInState = atom({
     key: 'CheckInState',
@@ -73,7 +79,7 @@ const ConfirmationBooking =(hotel)=>{
         title: 'Are sure to confirm this Book?',
         html: `
       <h3>${hotel.name}</h3>
-      <p>City: ${city}</p>
+      <p>City: ${hotel.city}</p>
       <p>CheckIn: ${checkIn}</p>
       <p>CheckOut: ${checkOut}</p>
       <p>Room: ${room}</p>

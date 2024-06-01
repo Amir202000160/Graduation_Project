@@ -6,6 +6,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.all.js'
 import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
 import { CheckInState, CheckOutState, RoomState} from "./Booking";
+import { EmailState } from '../SignUp/SignUP';
+
 /////////////////////////////////////////////////////////
 
 
@@ -16,6 +18,9 @@ function ViewHotelDetails (hotel) {
    let checkIn= useRecoilValue(CheckInState)
    let checkOut= useRecoilValue(CheckOutState)
    let Room= useRecoilValue(RoomState)
+   //EmailFromSignUp
+   let Email=useRecoilValue(EmailState)
+   console.log(Email)
 
 ////////////////////////////////////////////////////////// 
     let navigate = useNavigate()

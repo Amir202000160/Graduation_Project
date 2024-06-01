@@ -9,10 +9,10 @@ import { EmailState } from '../SignUp/SignUP';
 ///////////////////////////////////////////////////////
 
 function VerifyPage() {
-
+//EmailFromSignUp
    let Email=useRecoilValue(EmailState)
    console.log(Email)
-   
+  
    const [Code, SetCode]=useState("")
    let navigate=useNavigate()
 

@@ -11,10 +11,13 @@ import { BiWorld } from "react-icons/bi";
 import { useState } from 'react';
 import { atom, useRecoilState } from 'recoil';
 
+//////////////////////////////////////////////////////
+
 export const EmailState = atom({
     key: 'EmailState',
     default: '',
 })
+//////////////////////
 function SignUp(){
 
    // const inputRef = useRef();
