@@ -28,8 +28,8 @@ function VerifyPage() {
         e.preventDefault()
         axios.post("http://localhost:3000/posts", 
             {
-                
-            Code
+            Code,
+            Email
             })
             .then((response) => {
                 console.log(response);

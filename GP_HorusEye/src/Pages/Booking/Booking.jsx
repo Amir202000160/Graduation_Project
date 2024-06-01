@@ -8,8 +8,8 @@ import axios from 'axios'
 import Swal from 'sweetalert2/dist/sweetalert2.all.js'
 import { useNavigate } from 'react-router';
 import {atom, useRecoilState } from 'recoil';
-/////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////
 
  export const CheckInState = atom({
     key: 'CheckInState',
@@ -35,12 +35,14 @@ function Booking () {
     const [checkIn,SetCheckIn] = useRecoilState(CheckInState)
     const [checkOut,SetCheckOut] = useRecoilState(CheckOutState)
     const [room,SetRoom] = useRecoilState(RoomState)   
+    const [FirltedHotels,SetFirltedHotels] = useState([])
 
     ////////////////////////fetch////////////////////////////
 
     useEffect(() => {axios.get('http://localhost:3000/product')
         .then((response) => {
             SetHotels(response.data)
+            console.log(response.data)
         }).catch
         ((error) => {
             console.log(error)
@@ -60,6 +62,9 @@ function Booking () {
         console.log(checkIn)
         console.log(checkOut)
         console.log(room)
+
+        SreachHotel(city);
+        
     }
 ///////////////////////////////Confirmation//////////////////
 
@@ -96,7 +101,15 @@ const ConfirmationBooking =(hotel)=>{
         price:price
     })}})}
 {} 
+///////////////////////Sreach////////////////////////
+  const SreachHotel =(city)=>{
+    const FirltedHotels = Hotels.filter((hotel) => {
+        return hotel.city.toLowerCase().includes(city.toLowerCase());
+    });
+    SetFirltedHotels(FirltedHotels);
+    console.log(FirltedHotels)
 
+  }
 
     return (<>
         <form className='BackG' onSubmit={onBooking} >
@@ -125,8 +138,7 @@ const ConfirmationBooking =(hotel)=>{
             </Container>
             
             <div className='Hotels'>
-                {
-                Hotels.map((hotel) =>{
+                {FirltedHotels.length === 0 ?(  Hotels.map((hotel) =>{
                     return(
                 <div className='card' key={hotel.id}>
                 <div className="card-image"></div>
@@ -143,8 +155,27 @@ const ConfirmationBooking =(hotel)=>{
             </div>
             </div>
                 )
-                })
-                }
+                }) ) : (
+
+                    FirltedHotels.map((hotel) =>{
+                        return(
+                    <div className='card' key={hotel.id}>
+                    <div className="card-image"></div>
+                    <div className="category">
+                    <h2>Hotel name: {hotel.name}</h2>
+                    <p>City: {hotel.city}</p>
+                    <p>Price/Night: {hotel.price} EGP</p>
+                    <p>Rating: {hotel.rating}</p>
+                    <p>Description: {hotel.description}</p>
+                    <div className='Btns'>
+                    <button className="btnBook" onClick={()=>{ConfirmationBooking(hotel)}}>Book</button>
+                    <button className='btnDetails' onClick={() =>{navigate(`/viewhoteldetails/${hotel.id}`)}}>view details</button>
+                    </div>
+                </div>
+                </div>
+                    )
+                    }
+                ))}
             </div>
         </form>
     </>
