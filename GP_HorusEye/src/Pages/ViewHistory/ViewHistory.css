@@ -22,12 +22,14 @@
     transition: 0.3s;
     font-weight: 500;
     text-decoration: none;
+     
 }
 .Navigate:hover{
     color: #da9328;
     cursor: pointer;
     transform: scale(1.1);
     transition: 0.3s;
+   
 
 }
 .Line{
@@ -35,12 +37,13 @@ margin-left: 2rem;
     border-bottom: 2px solid aliceblue;
     border-radius:10px ;
     width: 90%;
+    position: sticky;
 }
 
 
 .History{
     padding: 1rem;
-    background-color: rgba(240, 248, 255, 0.539);
+    background-color: rgba(255, 255, 255, 0.575);
     backdrop-filter: blur(8px);
     justify-self: start;
     width: 70%;
@@ -49,4 +52,6 @@ margin-left: 2rem;
     display: flex;
     flex-direction: column;     
     align-items: start;
+    gap: 1rem;
+    font-size: larger;
 }
