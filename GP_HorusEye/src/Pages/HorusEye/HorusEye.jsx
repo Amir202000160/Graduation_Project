@@ -1,9 +1,16 @@
 import axios from 'axios'
 import './HorusEye.css'
 import {useRef, useEffect, useState} from 'react'
+import { useRecoilValue } from 'recoil';
+import { EmailState } from '../SignUp/SignUP';
+
+///////////////////////////////////////////////////////
+
 
 function HorusEye(){
-
+//EmailFromSignUp
+let Email=useRecoilValue(EmailState)
+   console.log(Email)
 
     const videoRef = useRef(null)
     const photoRef = useRef(null)

@@ -4,17 +4,25 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
 import { FaUser} from "react-icons/fa";
 import { MdOutlineNumbers } from "react-icons/md";
 import { BiWorld } from "react-icons/bi";
 import { useState } from 'react';
+import { atom, useRecoilState } from 'recoil';
+
+//////////////////////////////////////////////////////
+
+export const EmailState = atom({
+    key: 'EmailState',
+    default: '',
+})
+//////////////////////
 function SignUp(){
 
    // const inputRef = useRef();
     const [FristName , SetFristName]=useState("")
     const [LastName , SetLastName]=useState("")
-    const [Email , SetEmail]=useState("")
+    const [Email , SetEmail]=useRecoilState(EmailState)
     const [Mobile , SetMobile]=useState("")
     const [Brithday , SetBrithday]=useState("")
     const [Country , SetCountry]=useState("")
@@ -33,6 +41,7 @@ function SignUp(){
     
     const SignSubmit =(e) =>{
         e.preventDefault()
+
         axios.post('http://localhost:8080/user/newToken', {
             email:Email,
             firstName:FristName,
@@ -40,15 +49,17 @@ function SignUp(){
             phoneNumber:Mobile,
             birthDate:Brithday,
             country:Country
-        }   ).catch(error => {
+        })
+          .catch(error => {
                 console.error(error);
-            }).then((res)=> {
+           })
+          .then((res)=> {
                 console.log(res.data)
                     navigate('/VerifyPage')
             })     
 
          
-    }
+   
 
     return(
     <>

@@ -1,0 +1,52 @@
+.background{
+    background-image: url("/public/old-city-architecture-ancient-wall-historic-876774-wallhere.com.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat-y;
+    display: flex;
+    flex-direction: column;
+    background-attachment: fixed;
+}
+.headers{
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    color: aliceblue;
+    display: flex;
+    gap:3rem;
+}
+.Navigate{
+    color: antiquewhite;
+    font-size: 1.5rem;
+    margin: 1rem;
+    transition: 0.3s;
+    font-weight: 500;
+    text-decoration: none;
+}
+.Navigate:hover{
+    color: #da9328;
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.3s;
+
+}
+.Line{
+margin-left: 2rem;
+    border-bottom: 2px solid aliceblue;
+    border-radius:10px ;
+    width: 90%;
+}
+
+
+.History{
+    padding: 1rem;
+    background-color: rgba(240, 248, 255, 0.539);
+    backdrop-filter: blur(8px);
+    justify-self: start;
+    width: 70%;
+    margin: 2rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;     
+    align-items: start;
+}
