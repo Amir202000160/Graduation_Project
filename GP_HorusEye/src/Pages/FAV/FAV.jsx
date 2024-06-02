@@ -1,41 +1,22 @@
-import '../FAV/FAV.css';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { useState } from 'react';
-function FAV(){
-    const [places, setPlaces] = useState(false);
-let ele = null;
+import './FAV.css';
+import { FaHeart } from "react-icons/fa";
 
-    if (places){
-        ele = <Container fluid className="Back">
-        <Row className='HEADER'>
-        <h1>Mark your memories</h1>
-       </Row> 
-       Your favorite places are here
-       <Row className='Row'>
-       <Col className='cardd shadow'>
-       <h6> PIC</h6>
-       <button className='btn btn-primary' onClick={() =>setPlaces(true)}>Upload</button>
-       </Col>
-       </Row>
-       </Container>
-    }
-    else {
-        ele = <><Container fluid className="Back">
-        <Row className='HEADER'>
-        <h1>Mark your memories</h1>
-       </Row> 
-       Your favorite places are here
-       <Row className='Row'>
-       <Col className='cardd shadow'>
-       <h6> you Have not uplaod any place yet</h6>
-       <button className='btn btn-primary' onClick={() =>setPlaces(true)}>Upload</button>
-       </Col>
-       </Row>
-       </Container></>}
+
+function FAV(){
+   
 return(
-    <>{ele}</>
+    <div className='Backk'>
+        <div className='head'>
+            <h1>Make your favourite memories here</h1>
+            <FaHeart className='heart'/>    
+        </div>
+        <div className='headers'>
+      <a className='Navigate'>Booking</a>
+      <a className='Navigate'>Landmarks</a>
+      </div>
+      <div className='Line'></div>
+    </div>
+    
 )
 }
 export default FAV;

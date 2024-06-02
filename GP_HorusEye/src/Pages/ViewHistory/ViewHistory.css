@@ -55,3 +55,20 @@ margin-left: 2rem;
     gap: 1rem;
     font-size: larger;
 }
+
+.heartt{
+    align-self: end;
+    margin-right: 2rem;
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.921);
+}
+.heartt:hover{
+    color: #da2828;
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+.notify{
+    margin-top: 5rem;
+
+}
