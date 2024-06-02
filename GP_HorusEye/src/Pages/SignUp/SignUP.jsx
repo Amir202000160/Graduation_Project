@@ -26,39 +26,40 @@ function SignUp(){
     const [Mobile , SetMobile]=useState("")
     const [Brithday , SetBrithday]=useState("")
     const [Country , SetCountry]=useState("")
-   /* const [password, Setpassword]=useState("")
+    /* const [password, Setpassword]=useState("")
     const [Confrim , SetConfrim]=useState("")
     const [filee, Setfile]=useState("")*/
     let navigate=useNavigate()
 
-
-
-
-  /*  const handleFileChange = (event) => {
+/*  const handleFileChange = (event) => {
         const file = event.target.files[0];
         const label = inputRef.current.previousSibling;
         label.textContent = file.name;
         Setfile(event.target.files[0]);
         
     };*/
-
+    
     const SignSubmit =(e) =>{
         e.preventDefault()
-        axios.post("http://localhost:3000/posts", 
-            {
-                FristName,
-                LastName,
-                Email,
-                Mobile,
-                Brithday,
-                Country,
-                /*password,
-                Confrim,
-                filee*/
-            })
-            navigate('/VerifyPage');
-            console.log(Email)
-    }
+
+        axios.post('http://localhost:8080/user/newToken', {
+            email:Email,
+            firstName:FristName,
+            lastName:LastName,
+            phoneNumber:Mobile,
+            birthDate:Brithday,
+            country:Country
+        })
+          .catch(error => {
+                console.error(error);
+           })
+          .then((res)=> {
+                console.log(res.data)
+                    navigate('/VerifyPage')
+            })     
+
+         
+   
 
     return(
     <>
@@ -66,6 +67,7 @@ function SignUp(){
     <Container fluid className="Wrapper" >
     
             <h1 className='h'>Sign Up</h1> 
+
             <Row>
             <Col><div className='InputBox'>
                 <input type='text' placeholder='FristName' required onChange={(e) =>SetFristName(e.target.value)}></input><FaUser className='icon'/>
