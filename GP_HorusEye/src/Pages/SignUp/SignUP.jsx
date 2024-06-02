@@ -18,8 +18,19 @@ function SignUp(){
     const [Mobile , SetMobile]=useState("")
     const [Brithday , SetBrithday]=useState("")
     const [Country , SetCountry]=useState("")
+    /* const [password, Setpassword]=useState("")
+    const [Confrim , SetConfrim]=useState("")
+    const [filee, Setfile]=useState("")*/
     let navigate=useNavigate()
 
+/*  const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        const label = inputRef.current.previousSibling;
+        label.textContent = file.name;
+        Setfile(event.target.files[0]);
+        
+    };*/
+    
     const SignSubmit =(e) =>{
         e.preventDefault()
         axios.post('http://localhost:8080/user/newToken', {
