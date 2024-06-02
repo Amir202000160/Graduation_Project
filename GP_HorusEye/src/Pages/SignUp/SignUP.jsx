@@ -31,7 +31,7 @@ function SignUp(){
     const [filee, Setfile]=useState("")*/
     let navigate=useNavigate()
 
-/*  const handleFileChange = (event) => {
+/*  /*const handleFileChange = (event) => {
         const file = event.target.files[0];
         const label = inputRef.current.previousSibling;
         label.textContent = file.name;
@@ -57,8 +57,10 @@ function SignUp(){
                 console.log(res.data)
                     navigate('/VerifyPage')
             })     
+    }
+        
 
-         
+               
    
 
     return(
@@ -112,5 +114,5 @@ function SignUp(){
     </form>
     
     </>
-    )
-}export default SignUp;
+    );
+    }export default SignUp;
