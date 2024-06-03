@@ -5,7 +5,7 @@ import { CityState,CheckInState,CheckOutState, RoomState } from '../Booking/Book
 import axios from 'axios';
 import { FaHeart } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ViewHistory() {
 
