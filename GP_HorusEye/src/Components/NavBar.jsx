@@ -32,7 +32,7 @@ function NavBar(){
           </div>
       /*  </div>*/
         
-        
+               
         )
 
 }
