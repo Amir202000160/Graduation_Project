@@ -4,24 +4,50 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
 import { FaUser} from "react-icons/fa";
 import { MdOutlineNumbers } from "react-icons/md";
 import { BiWorld } from "react-icons/bi";
 import { useState } from 'react';
+import { atom, useRecoilState } from 'recoil';
+import PopUp from '../PopUp/Popup';
+
+//////////////////////////////////////////////////////
+
+export const EmailState = atom({
+    key: 'EmailState',
+    default: '',
+})
+
+//////////////////////
 function SignUp(){
 
    // const inputRef = useRef();
     const [FristName , SetFristName]=useState("")
     const [LastName , SetLastName]=useState("")
-    const [Email , SetEmail]=useState("")
+    const [Email , SetEmail]=useRecoilState(EmailState)
     const [Mobile , SetMobile]=useState("")
     const [Brithday , SetBrithday]=useState("")
     const [Country , SetCountry]=useState("")
+    const [AlreadyExist,setAlreadyExist]=useState(false)
+    /* const [password, Setpassword]=useState("")
+    const [Confrim , SetConfrim]=useState("")
+    const [filee, Setfile]=useState("")*/
     let navigate=useNavigate()
-
+    function onClose(){
+        setAlreadyExist(false)  
+    }
+    
+/*  /*const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        const label = inputRef.current.previousSibling;
+        label.textContent = file.name;
+        Setfile(event.target.files[0]);
+        
+    };*/
+    
     const SignSubmit =(e) =>{
         e.preventDefault()
+
         axios.post('http://localhost:8080/user/newToken', {
             email:Email,
             firstName:FristName,
@@ -29,15 +55,23 @@ function SignUp(){
             phoneNumber:Mobile,
             birthDate:Brithday,
             country:Country
-        }   ).catch(error => {
+        })
+          .catch(error => {
                 console.error(error);
-            }).then((res)=> {
-                console.log(res.data)
-                    navigate('/VerifyPage')
+           })
+          .then((res)=> {
+            console.log(res.data)
+            if((res.data) === 1){
+                navigate('/VerifyPage')
+            }else{
+                setAlreadyExist(true)
+            }
             })     
+    }
+        
 
-         
-    }
+               
+   
 
     return(
     <>
@@ -73,22 +107,13 @@ function SignUp(){
                 <input type='text' placeholder='Country ' required onChange={(e) =>SetCountry(e.target.value)}></input><BiWorld className='icon'/>
             </div></Col>
             </Row>
-        {/* <div className='InputBox'>
-                <input type='password' placeholder='password' required onChange={(e) =>Setpassword(e.target.value)}></input><FaLock className='icon'/>
-            </div>
-            <div className='InputBox'>
-                <input type='password' placeholder='Confirm password' required onChange={(e) =>SetConfrim(e.target.value)}></input><FaLock className='icon'/>
-            </div>
-            <div className="InputBoxFile">
-            <Col> <label htmlFor='uploadbtn' className='label' >UPLOAD PassPort</label>  
-    <input type="file" accept=".pdf" id='uploadbtn'required   ref={inputRef} onChange={handleFileChange} /></Col>
-    </div>*/}
+        
            <button type='submit' className='LOG'>Next</button>
         
     
         </Container>
     </form>
-    
+        {AlreadyExist && < PopUp message="this email is already signed" onClose={onClose}/>}
     </>
-    )
-}export default SignUp;
+    );
+    }export default SignUp;

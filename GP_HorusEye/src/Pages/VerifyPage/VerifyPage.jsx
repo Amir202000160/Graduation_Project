@@ -1,39 +1,42 @@
 import './Verifypage.css'
 import Container from 'react-bootstrap/Container';
 import { useNavigate } from 'react-router-dom';
-
+import PopUp from '../PopUp/Popup';
 import axios from 'axios';
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { EmailState } from '../SignUp/SignUP';
+
 function VerifyPage() {
-
+    let Email=useRecoilValue(EmailState)
     const [Code, SetCode]=useState("")
-   let navigate=useNavigate()
+    const [CodeWrong,setCodeWrong]=useState(false)
 
-   {/*} const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        const label = inputRef.current.previousSibling;
-        label.textContent = file.name;
-        Setfile(event.target.files[0]);
-        
-    };*/}
+    let navigate=useNavigate()
+    function onClose(){
+        setCodeWrong(false)  
+    }
 
     const SignSubmit =(e) =>{
         e.preventDefault()
-        axios.post("http://localhost:3000/posts", 
-            {
-            Code
-            })
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-            navigate('/Password');
-            
-    }
+        axios.post('http://localhost:8080/user/assignCode', null,{
+            params:{
+            email: Email,
+            code: Code
+        } }  ).catch(error => {
+                console.error(error);
+            }).then((res)=> {
+                console.log(res.data)
+                if((res.data) == true){
+                    navigate('/Password')
+                }else{
+                    setCodeWrong(true)
+                }
+            })     
+        }
 
     return (
+        <>
         <form className="LoginBackGround" onSubmit={SignSubmit}>
     <Container fluid className="Wrapper" >
             <h1 className='h'>Email Validation</h1> 
@@ -46,7 +49,10 @@ function VerifyPage() {
         
     
         </Container>
+        
     </form>
-    )
-}
-export default VerifyPage;
+            {CodeWrong && < PopUp message="code is not true" onClose={onClose}/>}
+            </>
+
+    );
+}export default VerifyPage;

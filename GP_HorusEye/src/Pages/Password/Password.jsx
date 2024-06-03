@@ -6,38 +6,46 @@ import { useNavigate } from 'react-router-dom';
 
 import { useState} from 'react';
 import { FaLock} from "react-icons/fa";
+import { useRecoilValue } from 'recoil';
+import { EmailState } from '../SignUp/SignUP';
+import PopUp from '../PopUp/Popup';
 
 function Password(){
-
-    //const inputRef = useRef();      const [filee, Setfile]=useState("")
-
-    const [password, Setpassword]=useState("")
-    const [Confrim , SetConfrim]=useState("")
+    let Email=useRecoilValue(EmailState)
+    const [Password, SetPassword]=useState("")
+    const [Confirm , SetConfirm]=useState("")
     let navigate=useNavigate()
+    const [PasswordNotIdentical,setPasswordNotIdentical]=useState(false)
+    const [NotValid,setNotValid]=useState(false)
 
 
-
-
-    {/*const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        const label = inputRef.current.previousSibling;
-        label.textContent = file.name;
-        Setfile(event.target.files[0]);
-        
-    };*/}
-
-    const SignSubmit =(e) =>{
-        e.preventDefault()
-        axios.post("http://localhost:3000/posts", 
-            {
-                
-                password,
-                Confrim,
-                
-            })
-            navigate('/');
+    function onClose(){
+        setPasswordNotIdentical(false)  
+        setNotValid(false)
     }
 
+    const SignSubmit =(e) =>{
+        console.log(Email);
+        e.preventDefault()
+        if(Password===Confirm){
+            if (Password.length >= 8) {
+        axios.post('http://localhost:8080/user/confirmPassword', null,{
+            params:{
+            email: Email,
+            password: Password
+        } }  ).catch(error => {
+                console.error(error);
+            }).then((res)=> {
+                if(res.data==true){
+                    navigate('/')
+                }
+            })  }else{
+                setNotValid(true)
+            }   
+        }else{
+            setPasswordNotIdentical(true)
+        }
+    }
     return(
     <>
     <form className="LoginBackGround" onSubmit={SignSubmit}>
@@ -46,10 +54,10 @@ function Password(){
             <h1 className='h'>Set Password</h1> 
             
         <div className='InputBox'>
-                <input type='password' placeholder='password' required onChange={(e) =>Setpassword(e.target.value)}></input><FaLock className='icon'/>
+                <input type='password' placeholder='password' required onChange={(e) =>SetPassword(e.target.value)}></input><FaLock className='icon'/>
             </div>
             <div className='InputBox'>
-                <input type='password' placeholder='Confirm password' required onChange={(e) =>SetConfrim(e.target.value)}></input><FaLock className='icon'/>
+                <input type='password' placeholder='Confirm password' required onChange={(e) =>SetConfirm(e.target.value)}></input><FaLock className='icon'/>
             </div>
             <div className="InputBoxFile">
             
@@ -59,7 +67,9 @@ function Password(){
     
         </Container>
     </form>
-    
+    {PasswordNotIdentical && < PopUp message="Passwords do not match." onClose={onClose}/>}
+    {NotValid && < PopUp message="Password must be at least 8 characters long." onClose={onClose}/>}
+
     </>
     )
 }export default Password;
