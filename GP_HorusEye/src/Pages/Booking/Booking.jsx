@@ -62,6 +62,7 @@ let Email=useRecoilValue(EmailState)
 
     const onBooking  =(e) =>{
         e.preventDefault()
+         SreachHotel(city);
         axios.post('url',null, 
         {params:{
             city:city,
@@ -74,7 +75,7 @@ let Email=useRecoilValue(EmailState)
         console.log(checkOut)
         console.log(room)
 
-        SreachHotel(city);
+       
         
     }
 ///////////////////////////////Confirmation//////////////////
@@ -113,14 +114,13 @@ const ConfirmationBooking =(hotel)=>{
     })}})}
 {} 
 ///////////////////////Sreach////////////////////////
-  const SreachHotel =(city)=>{
-    const FirltedHotels = Hotels.filter((hotel) => {
-        return hotel.city.toLowerCase().includes(city.toLowerCase());
-    });
-    SetFirltedHotels(FirltedHotels);
-    console.log(FirltedHotels)
-
-  }
+const SreachHotel =(city)=>{
+        const FirltedHotels = Hotels.filter((hotel) => {
+          return hotel?.city?.toLowerCase().includes(city.toLowerCase());
+        });
+        SetFirltedHotels(FirltedHotels);
+        console.log(FirltedHotels);
+}
 
     return (<>
         <form className='BackG' onSubmit={onBooking} >
