@@ -1,17 +1,19 @@
 import '../SignUp/SignUp.css'
 import Container from 'react-bootstrap/Container';
-
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
 import { useState} from 'react';
 import { FaLock} from "react-icons/fa";
-import { useRecoilValue } from 'recoil';
-import { EmailState } from '../SignUp/SignUP';
 import PopUp from '../PopUp/Popup';
+import React, { useContext } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
+import { testEmail } from '../../Components/atom';
+import { useRecoilState } from 'recoil';
+
 
 function Password(){
-    let Email=useRecoilValue(EmailState)
+    const [testedEmail,setTestedEmail]=useRecoilState(testEmail)
+    const { Email, setEmail } = useContext(GlobalContext);
     const [Password, SetPassword]=useState("")
     const [Confirm , SetConfirm]=useState("")
     let navigate=useNavigate()
@@ -31,12 +33,13 @@ function Password(){
             if (Password.length >= 8) {
         axios.post('http://localhost:8080/user/confirmPassword', null,{
             params:{
-            email: Email,
+            email: testedEmail,
             password: Password
         } }  ).catch(error => {
                 console.error(error);
             }).then((res)=> {
                 if(res.data==true){
+                    setEmail(testedEmail)
                     navigate('/')
                 }
             })  }else{

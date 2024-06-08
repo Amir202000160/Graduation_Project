@@ -3,12 +3,13 @@ import Container from 'react-bootstrap/Container';
 import { useNavigate } from 'react-router-dom';
 import PopUp from '../PopUp/Popup';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { EmailState } from '../SignUp/SignUP';
+import { testEmail } from '../../Components/atom';
+
 
 function VerifyPage() {
-    let Email=useRecoilValue(EmailState)
+    const [testedEmail,setTestedEmail]=useRecoilState(testEmail)
     const [Code, SetCode]=useState("")
     const [CodeWrong,setCodeWrong]=useState(false)
 
@@ -21,12 +22,11 @@ function VerifyPage() {
         e.preventDefault()
         axios.post('http://localhost:8080/user/assignCode', null,{
             params:{
-            email: Email,
+            email: testedEmail,
             code: Code
         } }  ).catch(error => {
                 console.error(error);
             }).then((res)=> {
-                console.log(res.data)
                 if((res.data) == true){
                     navigate('/Password')
                 }else{

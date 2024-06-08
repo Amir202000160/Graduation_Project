@@ -19,7 +19,7 @@ body{
 }
 @media screen and (max-width:352px){
     body{
-        padding-top: 15rem;
+        padding-top: 10rem;
         
     }
 }
@@ -100,7 +100,7 @@ body{
     flex-wrap: wrap;
     gap: 5rem;
     flex-direction: row;
-    margin-bottom: 10rem;
+    /* margin-bottom: 10rem; */
     align-items: center;
     
 }
@@ -174,40 +174,9 @@ transition: 0.3s;
     transition: 0.3s;
 }
 
-.HorusEyeDec{
-    background-color: rgb(235, 228, 228);
-    border-radius: 10px;
-    width: fit-content;
-    height: fit-content;
-    margin-left: 2rem;
-    margin-top: 1.28rem;
-    padding: 1rem;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 0.2rem;
-    text-align: center;
-    align-self: start;
+.buttom{
+    color: aliceblue;
+    align-items: center;
 }
 
-.description{
-    background-image: url('/public/papyurs.png');
-    background-repeat: no-repeat; 
-    background-size: cover;
-    background-position:left ;
-    align-self: start;
-    width: 100%;
-    height: 150%;
-}
 
-.description h6{
-    color: azure;
-    margin-left: 13rem;
-    margin-top: 4%;
-    padding: 1rem;
-    font-size: 1.5rem;
-    font-weight: 500;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    width: fit-content;
-    height: fit-content;
-}

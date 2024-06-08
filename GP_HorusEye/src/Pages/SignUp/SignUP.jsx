@@ -8,23 +8,17 @@ import { FaUser} from "react-icons/fa";
 import { MdOutlineNumbers } from "react-icons/md";
 import { BiWorld } from "react-icons/bi";
 import { useState } from 'react';
-import { atom, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import PopUp from '../PopUp/Popup';
-
+import { testEmail } from '../../Components/atom';
 //////////////////////////////////////////////////////
-
-export const EmailState = atom({
-    key: 'EmailState',
-    default: '',
-})
 
 //////////////////////
 function SignUp(){
-
    // const inputRef = useRef();
+    const [testedEmail,setTestedEmail]=useRecoilState(testEmail)
     const [FristName , SetFristName]=useState("")
     const [LastName , SetLastName]=useState("")
-    const [Email , SetEmail]=useRecoilState(EmailState)
     const [Mobile , SetMobile]=useState("")
     const [Brithday , SetBrithday]=useState("")
     const [Country , SetCountry]=useState("")
@@ -49,7 +43,7 @@ function SignUp(){
         e.preventDefault()
 
         axios.post('http://localhost:8080/user/newToken', {
-            email:Email,
+            email:testedEmail,
             firstName:FristName,
             lastName:LastName,
             phoneNumber:Mobile,
@@ -92,7 +86,7 @@ function SignUp(){
             </Row>
             
         <div className='InputBox'>
-                <input type='email' placeholder='Email' required onChange={(e) =>SetEmail(e.target.value)}></input><FaUser className='icon'/>
+                <input type='email' placeholder='Email' required onChange={(e) =>setTestedEmail(e.target.value)}></input><FaUser className='icon'/>
             </div>
             
             <div className='InputBox'>

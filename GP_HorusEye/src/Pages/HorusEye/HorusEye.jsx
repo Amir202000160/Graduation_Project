@@ -1,73 +1,134 @@
 import axios from 'axios'
 import './HorusEye.css'
-import {useRef, useEffect, useState} from 'react'
+import { useRef, useState } from 'react'
 
-function HorusEye(){
-
-
-    const videoRef = useRef(null)
-    const photoRef = useRef(null)
-    const [hasphoto, setHasphoto] = useState("")
+///////////////////////////////////////////////////////
 
 
-  const takePhoto = (e) => {
-  const width = 500;
-  const height = width;
-  let video = videoRef.current;
-  let photo = photoRef.current;
-if (photo) {
-    photo.width = width;
-    photo.height = height;}
+function HorusEye() {
+  const [message, setMessage] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
 
-    let ctx = photo.getContext('2d');
-    ctx.drawImage(video, 0, 0, width, height);
-    axios.post('http://localhost:3000/product', 
-    {
-    photo: photo.toDataURL()
-    }
-    ).then((response) => {
-        console.log(response);
-        }
-    )
-  
-};
-
-const getVideo = () => {
-    navigator.mediaDevices.getUserMedia({
-      video: { width: 300, height: 300 }
-    })
-  .then((stream) => {
-      const video = videoRef.current;
-      if (video &&!video.srcObject) {
-        video.srcObject = stream;
-        video.play();
+  const startCamera = async () => {
+      try {
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          if (videoRef.current) {
+              videoRef.current.srcObject = stream;
+          }
+      } catch (error) {
+          console.error('Error accessing camera:', error);
       }
-    })
-  .catch((error) => {
-      console.error('Error getting video:', error);
-    });
   };
 
-        useEffect(() => {
-            getVideo();
-        },[ videoRef])
-    
-    return(
-        <div className="BackGround">
-            <div className='Header'>
-                <h1 className='H'>Welcome to our new technology</h1>
-                <div className='HE'>
-                <img src='/public/Group 4.png'  className='img'/>
-                <h1>Horus EYE</h1>
-                <img src='/public/Group 4.png'className='img' />
-                </div>
-            </div> 
+  const captureFrame = () => {
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
 
-            <div className='Header'>
-              <h2>Enter the landmark</h2>
-            </div>
+      if (!video || !canvas) {
+          console.error('Video or canvas ref not found');
+          return;
+      }
 
-            <div className="HorusEye">
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      const imageDataURL = canvas.toDataURL('image/jpeg');
+      const imageBlob = dataURLToBlob(imageDataURL);
+
+      sendToModel(imageBlob);
+  };
+
+  const dataURLToBlob = (dataURL) => {
+      const byteString = atob(dataURL.split(',')[1]);
+      const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+      }
+
+      return new Blob([ab], { type: mimeString });
+  };
+
+  const handleFileChange = (event) => {
+      setSelectedFile(event.target.files[0]);
+  };
+
+  const handleFileUpload = async () => {
+      if (!selectedFile) {
+          alert('Please select a file.');
+          return;
+      }
+
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      try {
+          const response = await axios.post('http://localhost:8080/api/predict', formData, {
+              headers: {
+                  'Content-Type': 'multipart/form-data'
+              }
+          });
+          setMessage(response.data.message); // Extract message from response
+      } catch (error) {
+          console.error('Error uploading file:', error);
+          setMessage('Error processing the image.');
+      }
+  };
+
+  const sendToModel = async (imageBlob) => {
+      const formData = new FormData();
+      formData.append('file', imageBlob, 'captured-frame.jpg');
+
+      try {
+          const response = await axios.post('http://localhost:8080/api/predict', formData, {
+              headers: {
+                  'Content-Type': 'multipart/form-data'
+              }
+          });
+          setMessage(response.data.message); // Extract message from response
+      } catch (error) {
+          console.error('Error sending data to model:', error);
+          setMessage('Error processing the image.');
+      }
+  };
+  return (
+    <div className="BackGround">
+      <div className='Header'>
+        <h1 className='H'>Welcome to our new technology</h1>
+        <div className='HE'>
+          <img src='/public/Group 4.png' className='img' />
+          <h1>Horus EYE</h1>
+          <img src='/public/Group 4.png' className='img' />
+        </div>
+      </div>
+
+      <div className="HorusEye">
+        <div >
+          <video ref={videoRef} className="video" ></video>
+          <button onClick={captureFrame}>Capture</button>
+        </div>
+        <div>
+          <input type="file" id='fileInput' onChange={handleFileChange} accept="image/*" style={{ display: 'none' }} />
+          <label for='fileInput' className='LabelFile'>Enter Landmark</label>
+          <button onClick={handleFileUpload}>Process</button>
+        </div>
+      </div>
+      {
+        <div >
+          <canvas ref={canvasRef} className="photo"></canvas>
+        </div>
+      }
+      <div className='buttom'>
+        <h3>Your description</h3>
+        <h4>{message}</h4>
+      </div>
+    </div>
+    /** 
+        <div className="HorusEye">
                 <div >
                 <video ref={videoRef} className="video" ></video>
                 <button onClick={takePhoto}>Capture</button>
@@ -78,25 +139,15 @@ const getVideo = () => {
                 <button onClick={takePhoto}>Process</button>
                 </div>
             </div>
-            {
+            <h1>Descrption</h1>
+            {/* //// dih ya fady 3ashn lma tados capture el sora eli sawrtaha tzhr 
             <div className={'result' + hasphoto ? 'hasphoto' :''}>
                 <canvas ref={photoRef} className="photo"></canvas>
-            </div>
-    }
+            </div>*/
+            // </div>
+    //  * */ 
     
-        
-            
-            <h3 className='HorusEyeDec'> Descripttion</h3>
-            <div>
-  <h6>Your description</h6>
-  <p>
-    dpksapfks][kas[kf][askf]pkaksk]psfak]ksfa]pkas]kf]s
-  </p>
-</div>
-
-
-            
-        </div>
-    )
+    
+  )
 }
 export default HorusEye;
