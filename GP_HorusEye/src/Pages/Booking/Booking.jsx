@@ -93,7 +93,7 @@ const ConfirmationBooking =(hotel)=>{
       <p>Rating: ${hotel.rating}</p>
       <p>Description: ${hotel.description}</p>
     `,
-         confirmButtonText: 'OK',
+         confirmButtonText: 'OKkkkkkk',
         showCancelButton:true,
         cancelButtonText: 'Cancel',
         cancelButtonColor: '#d33',
